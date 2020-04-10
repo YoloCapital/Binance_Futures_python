@@ -17,14 +17,17 @@ class RequestClient(object):
         api_key = None
         secret_key = None
         url = RestApiDefine.Url
+        recvwindow = None
         if "api_key" in kwargs:
             api_key = kwargs["api_key"]
         if "secret_key" in kwargs:
             secret_key = kwargs["secret_key"]
         if "url" in kwargs:
             url = kwargs["url"]
+        if "recvwindow" in kwargs:
+            recvwindow = kwargs["recvwindow"]
         try:
-            self.request_impl = RestApiRequestImpl(api_key, secret_key, url)
+            self.request_impl = RestApiRequestImpl(api_key, secret_key, url, recvwindow)
         except Exception:
             pass
     

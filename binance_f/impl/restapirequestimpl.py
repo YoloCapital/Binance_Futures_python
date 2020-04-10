@@ -11,10 +11,13 @@ from binance_f.base.printobject import *
 
 class RestApiRequestImpl(object):
 
-    def __init__(self, api_key, secret_key, server_url="https://fapi.binance.com"):
+    def __init__(self, api_key, secret_key, 
+                 server_url="https://fapi.binance.com",
+                 recvwindow=3000):
         self.__api_key = api_key
         self.__secret_key = secret_key
         self.__server_url = server_url
+        self.__recvwindow = recvwindow
 
     def __create_request_by_get(self, url, builder):
         request = RestApiRequest()
@@ -42,7 +45,7 @@ class RestApiRequestImpl(object):
         request = RestApiRequest()
         request.method = "POST"
         request.host = self.__server_url
-        builder.put_url("recvWindow", 60000)
+        builder.put_url("recvWindow", self.__recvwindow)
         builder.put_url("timestamp", str(get_current_timestamp() - 1000))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})
@@ -60,7 +63,7 @@ class RestApiRequestImpl(object):
         request = RestApiRequest()
         request.method = "DELETE"
         request.host = self.__server_url
-        builder.put_url("recvWindow", 60000)
+        builder.put_url("recvWindow", self.__recvwindow)
         builder.put_url("timestamp", str(get_current_timestamp() - 1000))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})
@@ -77,7 +80,7 @@ class RestApiRequestImpl(object):
         request = RestApiRequest()
         request.method = "GET"
         request.host = self.__server_url
-        builder.put_url("recvWindow", 60000)
+        builder.put_url("recvWindow", self.__recvwindow)
         builder.put_url("timestamp", str(get_current_timestamp() - 1000))
         create_signature(self.__secret_key, builder)
         request.header.update({"Content-Type": "application/x-www-form-urlencoded"})
@@ -94,7 +97,7 @@ class RestApiRequestImpl(object):
         request = RestApiRequest()
         request.method = "PUT"
         request.host = self.__server_url
-        builder.put_url("recvWindow", 60000)
+        builder.put_url("recvWindow", self.__recvwindow)
         builder.put_url("timestamp", str(get_current_timestamp() - 1000))
         create_signature(self.__secret_key, builder)
         request.header.update({'Content-Type': 'application/json'})

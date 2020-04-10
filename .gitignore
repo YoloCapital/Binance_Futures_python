@@ -1,1 +1,8 @@
 *.pyc
+
+.venv/
+
+binance_futures.egg-info/
+
+dist/
+build/

@@ -14,18 +14,10 @@ class RequestClient(object):
             secret_key: The private key applied from Binance.
             server_url: The URL name like "https://api.binance.com".
         """
-        api_key = None
-        secret_key = None
-        url = RestApiDefine.Url
-        recvwindow = None
-        if "api_key" in kwargs:
-            api_key = kwargs["api_key"]
-        if "secret_key" in kwargs:
-            secret_key = kwargs["secret_key"]
-        if "url" in kwargs:
-            url = kwargs["url"]
-        if "recvwindow" in kwargs:
-            recvwindow = kwargs["recvwindow"]
+        api_key = kwargs.get("api_key", None)
+        secret_key = kwargs.get("secret_key", None)
+        url = kwargs.get("url", RestApiDefine.Url)
+        recvwindow = kwargs.get("recvwindow", 3000)
         try:
             self.request_impl = RestApiRequestImpl(api_key, secret_key, url, recvwindow)
         except Exception:

@@ -1,3 +1,4 @@
+import logging
 import requests
 from binance_f.exception.binanceapiexception import BinanceApiException
 from binance_f.impl.utils import *
